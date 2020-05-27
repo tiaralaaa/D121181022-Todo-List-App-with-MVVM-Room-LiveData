@@ -12,6 +12,7 @@
     <string name="create_items">Create Items</string>
 
     <string name="no_due_is_set">No due date is set</string>
+    <string name="uncorrect_time">Something is wrong with the time</string>
 
     <string name="mark_as_complete">MARK AS COMPLETE</string>
     <string name="mark_as_incomplete">MARK AS INCOMPLETE</string>

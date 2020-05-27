@@ -113,6 +113,7 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.TodoItemClickListener 
                     "Description $index",
                     "Tag $index",
                     0,
+                    0,
                     false
                 )
             )

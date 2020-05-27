@@ -3,11 +3,13 @@ package id.ac.unhas.todolistapptiara
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import id.ac.unhas.todolistapptiara.R
 import id.ac.unhas.todolistapptiara.data.database.TodoItem
@@ -16,6 +18,8 @@ import id.ac.unhas.todolistapptiara.utilities.convertMillis
 import id.ac.unhas.todolistapptiara.utilities.convertNumberToMonthName
 import id.ac.unhas.todolistapptiara.utilities.dateToMillis
 import kotlinx.android.synthetic.main.activity_add_edit_todo_item.*
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddEditTodoItemActivity : AppCompatActivity() {
@@ -76,6 +80,7 @@ class AddEditTodoItemActivity : AppCompatActivity() {
         return true
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.save_todo_item -> {
@@ -87,6 +92,18 @@ class AddEditTodoItemActivity : AppCompatActivity() {
         return true
     }
 
+    private  fun getMilliFromDate(dateFormat: String?): Long {
+        var date = Date()
+        val formatter = SimpleDateFormat("dd/MM/yyyy HH/mm")
+        try {
+            date = formatter.parse(dateFormat)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        return date.time
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun saveTodoItem() {
         if (validateFields()) {
             val id = if (todoItem != null) todoItem?.id else null
@@ -95,6 +112,7 @@ class AddEditTodoItemActivity : AppCompatActivity() {
                 title = et_todo_title.text.toString(),
                 description = et_todo_description.text.toString(),
                 tags = et_todo_tags.text.toString(),
+                create = getMilliFromDate("yyyy MM dd HH.mm"),
                 dueTime = dueDate,
                 completed = todoItem?.completed ?: false
             )

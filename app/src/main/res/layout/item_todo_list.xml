@@ -16,10 +16,37 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tv_due_date"
+        android:id="@+id/tv_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_item_title"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif"
+        android:text="Create:"
+        android:textColor="#A9A9A9"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_item_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/tv_due_date"
+        android:layout_below="@id/tv_item_title"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="6dp"
+        android:fontFamily="sans-serif"
+        android:text="30.08.2019"
+        android:textColor="#000"
+        android:textSize="14sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/tv_due_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_item_create"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:fontFamily="sans-serif"
@@ -33,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/tv_due_date"
-        android:layout_below="@id/tv_item_title"
+        android:layout_below="@id/tv_item_create"
         android:layout_marginTop="10dp"
         android:layout_marginStart="6dp"
         android:fontFamily="sans-serif"

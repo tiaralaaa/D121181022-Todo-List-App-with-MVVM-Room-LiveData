@@ -13,6 +13,7 @@ data class TodoItem(
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "description") val description: String?,
     @ColumnInfo(name = "tags") val tags: String?,
+    @ColumnInfo(name = "create") val create: Long?,
     @ColumnInfo(name = "due") val dueTime: Long?,
     @ColumnInfo(name = "completed") var completed: Boolean
 ): Parcelable

@@ -88,6 +88,12 @@ class TodoListAdapter(todoItemClickListener: TodoItemClickListener) :
                 itemView.tv_item_title.apply {
                     paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 }
+                itemView.tv_item_create.apply {
+                    paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                }
+                itemView.tv_create.apply {
+                    paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                }
                 itemView.tv_item_due_date.apply {
                     paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 }
@@ -96,6 +102,12 @@ class TodoListAdapter(todoItemClickListener: TodoItemClickListener) :
                 }
             } else {
                 itemView.tv_item_title.apply {
+                    paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                }
+                itemView.tv_item_create.apply {
+                    paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                }
+                itemView.tv_create.apply {
                     paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
                 }
                 itemView.tv_item_due_date.apply {
@@ -136,6 +148,38 @@ class TodoListAdapter(todoItemClickListener: TodoItemClickListener) :
             } else {
                 itemView.tv_item_due_date.text =
                     itemView.context.getString(R.string.no_due_is_set)
+            }
+
+            if (todoItem.create!!.toInt() != 0) {
+                val dateValues = convertMillis(todoItem.create)
+                val displayFormat: String
+
+                if (dateValues[4] < 10) {
+                    displayFormat = String
+                        .format(
+                            itemView.context.getString(R.string.due_date_minute_less_than_ten),
+                            convertNumberToMonthName(dateValues[1]),
+                            dateValues[0],
+                            dateValues[2],
+                            dateValues[3],
+                            dateValues[4]
+                        )
+                } else {
+                    displayFormat = String
+                        .format(
+                            itemView.context.getString(R.string.due_date_minute_greater_than_ten),
+                            convertNumberToMonthName(dateValues[1]),
+                            dateValues[0],
+                            dateValues[2],
+                            dateValues[3],
+                            dateValues[4]
+                        )
+                }
+
+                itemView.tv_item_create.text = displayFormat
+            } else {
+                itemView.tv_item_create.text =
+                    itemView.context.getString(R.string.uncorrect_time)
             }
 
             itemView.setOnClickListener {
