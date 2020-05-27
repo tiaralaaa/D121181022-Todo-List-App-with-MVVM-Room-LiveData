@@ -102,24 +102,46 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.TodoItemClickListener 
         countDialog?.dismiss()
     }
 
-    private fun createMockTodoItems(count: Int) {
-        val todoList = mutableListOf<TodoItem>()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            val todoItem = data?.getParcelableExtra<TodoItem>(Constants.KEY_INTENT)!!
+            when (requestCode) {
+                Constants.INTENT_CREATE_TODO_ITEM -> {
+                    todoViewModel.saveTodoItem(todoItem)
 
-        for (index in 0..count) {
-            todoList.add(
-                TodoItem(
-                    null,
-                    "Title $index",
-                    "Description $index",
-                    "Tag $index",
-                    0,
-                    0,
-                    false
-                )
-            )
+                    hideEmptyTaskListImage()
+                }
+                Constants.INTENT_EDIT_TODO_ITEM -> {
+
+                    todoViewModel.updateTodoItem(todoItem)
+                }
+            }
         }
+    }
 
-        todoViewModel.saveTodoItems(todoList)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_todo_search, menu)
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView = menu?.findItem(R.id.search_todo)
+            ?.actionView as SearchView
+        searchView.setSearchableInfo(
+            searchManager
+                .getSearchableInfo(componentName)
+        )
+        searchView.maxWidth = Integer.MAX_VALUE
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                todoAdapter.filter.filter(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                todoAdapter.filter.filter(newText)
+                return false
+            }
+
+        })
+        return true
     }
 
     private fun clearSearchView() {
