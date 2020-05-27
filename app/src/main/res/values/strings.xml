@@ -13,9 +13,16 @@
 
     <string name="no_due_is_set">No due date is set</string>
 
+    <string name="mark_as_complete">MARK AS COMPLETE</string>
+    <string name="mark_as_incomplete">MARK AS INCOMPLETE</string>
+
     <string name="due_date_minute_less_than_ten">%1$s %2$d %3$d %4$d:0%5$d</string>
     <string name="due_date_minute_greater_than_ten">%1$s %2$d %3$d %4$d:%5$d</string>
 
     <string name="create_item">Create Item</string>
     <string name="edit_item">Edit Item</string>
+
+    <string name="how_many_item_do_you_want_to_create">How many items do you want to create?</string>
+    <string name="cancel">CANCEL</string>
+    <string name="create">CREATE</string>
 </resources>
