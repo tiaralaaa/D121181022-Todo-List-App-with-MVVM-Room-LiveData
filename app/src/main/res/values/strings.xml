@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">ToDoListAppTiara</string>
+
+    <string name="enter_title">Title of the item</string>
+    <string name="description">Description</string>
+    <string name="due_date">Due Date</string>
+    <string name="tags">Tags (separate with space)</string>
+    <string name="search">Search…</string>
+    <string name="due_time">Due Time</string>
+    <string name="pick_a_due_date">Pick a Due Date</string>
+    <string name="pick_a_due_time">Pick a Due Time</string>
+    <string name="create_items">Create Items</string>
+
+    <string name="no_due_is_set">No due date is set</string>
+
+    <string name="due_date_minute_less_than_ten">%1$s %2$d %3$d %4$d:0%5$d</string>
+    <string name="due_date_minute_greater_than_ten">%1$s %2$d %3$d %4$d:%5$d</string>
+
+    <string name="create_item">Create Item</string>
+    <string name="edit_item">Edit Item</string>
 </resources>
