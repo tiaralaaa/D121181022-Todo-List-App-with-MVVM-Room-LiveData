@@ -21,6 +21,7 @@ import id.ac.unhas.todolistapptiara.utilities.convertMillis
 import id.ac.unhas.todolistapptiara.utilities.convertNumberToMonthName
 import id.ac.unhas.todolistapptiara.adapters.TodoListAdapter
 import id.ac.unhas.todolistapptiara.data.database.TodoItem
+import id.ac.unhas.todolistapptiara.notification.NotificationUtils
 import id.ac.unhas.todolistapptiara.utilities.Constants
 import id.ac.unhas.todolistapptiara.viewmodel.TodoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -153,6 +154,8 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.TodoItemClickListener 
 
     override fun onDeleteClicked(todoItem: TodoItem) {
         todoViewModel.deleteTodoItem(todoItem)
+
+        NotificationUtils().cancelNotification(todoItem, this)
     }
 
     override fun onItemClicked(todoItem: TodoItem) {
@@ -164,6 +167,12 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.TodoItemClickListener 
     }
 
     override fun onCheckClicked(todoItem: TodoItem) {
+        if (!todoItem.completed) {
+            NotificationUtils().cancelNotification(todoItem, this)
+        } else if (todoItem.completed && todoItem.dueTime!! > 0 && System.currentTimeMillis() < todoItem.dueTime) {
+            NotificationUtils().setNotification(todoItem, this)
+        }
+
         todoViewModel.toggleCompleteState(todoItem)
     }
 
@@ -219,6 +228,14 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.TodoItemClickListener 
                 dialog!!.button_complete_todo_item.text = getString(R.string.mark_as_complete)
             }
             onCheckClicked(todoItem)
+        }
+
+        dialog!!.button_edit_todo_item.setOnClickListener {
+            NotificationUtils().cancelNotification(todoItem, this)
+            val intent = Intent(this@MainActivity, AddEditTodoItemActivity::class.java)
+            intent.putExtra(Constants.KEY_INTENT, todoItem)
+            startActivityForResult(intent, Constants.INTENT_EDIT_TODO_ITEM)
+            dialog!!.dismiss()
         }
 
         dialog!!.show()

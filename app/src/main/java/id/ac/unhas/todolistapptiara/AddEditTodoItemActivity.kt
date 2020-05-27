@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import id.ac.unhas.todolistapptiara.R
 import id.ac.unhas.todolistapptiara.data.database.TodoItem
+import id.ac.unhas.todolistapptiara.notification.NotificationUtils
 import id.ac.unhas.todolistapptiara.utilities.Constants
 import id.ac.unhas.todolistapptiara.utilities.convertMillis
 import id.ac.unhas.todolistapptiara.utilities.convertNumberToMonthName
@@ -120,6 +121,10 @@ class AddEditTodoItemActivity : AppCompatActivity() {
             val intent = Intent()
             intent.putExtra(Constants.KEY_INTENT, todo)
             setResult(RESULT_OK, intent)
+
+            if (todo.dueTime!! > 0) {
+                NotificationUtils().setNotification(todo, this)
+            }
 
             finish()
         }
