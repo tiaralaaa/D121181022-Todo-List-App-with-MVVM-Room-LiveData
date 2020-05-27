@@ -104,6 +104,7 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.TodoItemClickListener 
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             val todoItem = data?.getParcelableExtra<TodoItem>(Constants.KEY_INTENT)!!
             when (requestCode) {
@@ -174,6 +175,10 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.TodoItemClickListener 
         }
 
         todoViewModel.toggleCompleteState(todoItem)
+    }
+
+    override fun onterrr(todoItem: TodoItem) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun displayEventDetails(todoItem: TodoItem) {

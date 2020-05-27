@@ -150,6 +150,10 @@ class TodoListAdapter(todoItemClickListener: TodoItemClickListener) :
                     itemView.context.getString(R.string.no_due_is_set)
             }
 
+            if (todoItem.update == true){
+                itemView.tv_create.text ="Updated"
+            }
+
             if (todoItem.create!!.toInt() != 0) {
                 val dateValues = convertMillis(todoItem.create)
                 val displayFormat: String
@@ -206,5 +210,6 @@ class TodoListAdapter(todoItemClickListener: TodoItemClickListener) :
         fun onDeleteClicked(todoItem: TodoItem)
         fun onItemClicked(todoItem: TodoItem)
         fun onCheckClicked(todoItem: TodoItem)
+        fun onterrr(todoItem: TodoItem)
     }
 }

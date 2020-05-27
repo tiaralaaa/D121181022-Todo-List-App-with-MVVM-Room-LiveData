@@ -36,6 +36,8 @@ class AddEditTodoItemActivity : AppCompatActivity() {
     private var dateSelected = false
     private var timeSelected = false
 
+    private var updated = false
+
     var todoItem: TodoItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +48,7 @@ class AddEditTodoItemActivity : AppCompatActivity() {
         if (intent != null && intent.hasExtra(Constants.KEY_INTENT)) {
             val todoItem: TodoItem = intent.getParcelableExtra(Constants.KEY_INTENT)
             this.todoItem = todoItem
+            updated = true
 
             if (todoItem.dueTime!!.toInt() != 0) {
                 dateSelected = true
@@ -115,14 +118,15 @@ class AddEditTodoItemActivity : AppCompatActivity() {
                 tags = et_todo_tags.text.toString(),
                 create = getMilliFromDate("yyyy MM dd HH.mm"),
                 dueTime = dueDate,
-                completed = todoItem?.completed ?: false
+                completed = todoItem?.completed ?: false,
+                update = updated
             )
 
             val intent = Intent()
             intent.putExtra(Constants.KEY_INTENT, todo)
             setResult(RESULT_OK, intent)
 
-            if (todo.dueTime!! > 0) {
+            if (todo.dueTime!! > 1) {
                 NotificationUtils().setNotification(todo, this)
             }
 
