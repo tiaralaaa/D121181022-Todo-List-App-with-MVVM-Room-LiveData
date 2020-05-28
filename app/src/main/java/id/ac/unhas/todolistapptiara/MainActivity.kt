@@ -64,6 +64,12 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.TodoItemClickListener 
                 }
             }
 
+            if (!Constants.sort) {
+                it.sortBy { it.dueTime }
+            } else {
+                it.sortBy { it.create }
+            }
+
             for (item in itemsWithNoDeadline) {
                 it.remove(item)
             }
@@ -71,8 +77,6 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.TodoItemClickListener 
             for (item in completedItems) {
                 it.remove(item)
             }
-
-            it.sortBy { it.dueTime }
 
             it.addAll(itemsWithNoDeadline)
             it.addAll(completedItems)
@@ -143,6 +147,23 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.TodoItemClickListener 
             }
 
         })
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.sortByDue -> {
+                Constants.sort = false
+                val intent = Intent(this@MainActivity, MainActivity::class.java)
+                startActivity(intent)
+            }
+
+            R.id.sortByCreate -> {
+                Constants.sort = true
+                val intent = Intent(this@MainActivity, MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
         return true
     }
 
@@ -250,11 +271,17 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.TodoItemClickListener 
         if (iv_empty_task_list.visibility == View.VISIBLE) {
             iv_empty_task_list.visibility = View.GONE
         }
+        if (info_empty.visibility == View.VISIBLE) {
+            info_empty.visibility = View.GONE
+        }
     }
 
     private fun displayEmptyTaskListImage() {
         if (iv_empty_task_list.visibility == View.GONE) {
             iv_empty_task_list.visibility = View.VISIBLE
+        }
+        if (info_empty.visibility == View.GONE) {
+            info_empty.visibility = View.VISIBLE
         }
     }
 }

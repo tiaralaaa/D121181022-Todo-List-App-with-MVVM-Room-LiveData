@@ -10,4 +10,18 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom" />
 
+    <group android:checkableBehavior="single"
+        android:id="@+id/sort" >
+
+        <item
+            android:id="@+id/sortByDue"
+            android:title="Sort by due time"
+            app:showAsAction="never"/>
+
+        <item
+            android:id="@+id/sortByCreate"
+            android:title="Sort by create time"
+            app:showAsAction="never"/>
+    </group>
+
 </menu>
